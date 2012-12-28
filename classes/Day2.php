@@ -21,7 +21,7 @@ class day2 {
         15 => 'fifteen',
         16 => 'sixteen',
         17 => 'seventeen',
-        18 => 'eightteen',
+        18 => 'eighteen',
         19 => 'nineteen',
         20 => 'twenty',
         30 => 'thirty',
@@ -32,6 +32,18 @@ class day2 {
         80 => 'eighty',
         90 => 'ninety',
     ];
+    
+    private $BIGNUM = [
+        24 => ' septillion, ',
+        21 => ' sextillion, ',
+        18 => ' quintillion, ',
+        15 => ' quadrillion, ',
+        12 => ' trillion, ',
+        9 => ' billion, ',
+        6 => ' million, ',
+        3 => ' thousand, ',
+        2 => ' hundred and '
+    ];
 
     public function spellNumber($number) {
         $response = '';
@@ -40,26 +52,16 @@ class day2 {
             $response .= 'minus ';
             $number = abs($number);
         }
-
-        if ($number >= 1000000) {
-            $t = intval($number / 1000000);
-            $response .= $this->spellNumber($t) . ' million, ';
-
-            $number = $number % 1000000;
-        }
-
-        if ($number >= 1000) {
-            $t = intval($number / 1000);
-            $response .= $this->spellNumber($t) . ' thousand, ';
-
-            $number = $number % 1000;
-        }
-
-        if ($number >= 100) {
-            $t = intval($number / 100);
-            $response .= $this->spellNumber($t) . ' hundred and ';
-
-            $number = $number % 100;
+        
+        foreach ($this->BIGNUM as $power => $words)
+        {
+            if ($number >= pow(10, $power))
+            {
+                $t = intval($number / pow(10, $power));
+                $response .= $this->spellNumber($t) . $words;
+                
+                $number %= pow(10, $power);
+            }
         }
 
         if ($number < 100 && $number > 0) {

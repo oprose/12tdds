@@ -28,7 +28,13 @@ class Day2Test extends PHPUnit_Framework_TestCase {
             [1501, 'one thousand, five hundred and one'],
             [12609, 'twelve thousand, six hundred and nine'],
             [512607, 'five hundred and twelve thousand, six hundred and seven'],
-            [43112603, 'forty three million, one hundred and twelve thousand, six hundred and three']
+            [43112603, 'forty three million, one hundred and twelve thousand, six hundred and three'],
+            // PHP_INT_MAX is signed, so 2^31 - 1
+            [PHP_INT_MAX, 'two billion, one hundred and forty seven million, four hundred and eighty three thousand, six hundred and forty seven'],
+            [1000000000000, 'one trillion'],
+            [1000000000000000, 'one quadrillion'],
+            [1000000000000000000, 'one quintillion'],
+            //[''],
         ];
     }
 
