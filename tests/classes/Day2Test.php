@@ -1,5 +1,5 @@
 <?php
-include '..\classes\Day2.php';
+include '..\classes\Day2\Day2.php';
 class Day2Test extends PHPUnit_Framework_TestCase {
 
     /**
