@@ -1,6 +1,6 @@
 <?php
 
-include_once '../../classes/Day5/FizzBuzz.php';
+include_once 'Loader.php';
 
 class Day5Test extends PHPUnit_Framework_TestCase {
 
@@ -9,30 +9,20 @@ class Day5Test extends PHPUnit_Framework_TestCase {
     const RANGE = 100;
 
     public function setUp() {
-        $this->object = new FizzBuzz();
+        $this->object = new Day5\FizzBuzz($this::RANGE);
     }
 
-    public function testFizz() {
-        $value = current($object);
-        
-        for ($key = 0; $key < $this::RANGE; ++$key) {
+    public function testFizzBuzz() {
+        foreach ($this->object as $key => $value) {
             if ($key % 3 == 0)
                 $this->assertRegExp('/fizz/i', $value);
             
-            $value = next($object);
-        }
-    }
-
-    public function testBuzz() {
-        $value = current($object);
-        
-        for ($key = 0; $key < $this::RANGE; ++$key) {
             if ($key % 5 == 0)
                 $this->assertRegExp('/buzz/i', $value);
             
-            $value = next($object);
+            if (($key % 3 != 0) && ($key % 5 != 0))
+                $this->assertEquals($key, $value);
         }
     }
-
 }
 ?>

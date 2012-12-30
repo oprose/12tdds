@@ -1,44 +1,59 @@
 <?php
-class FizzBuzz implements Iterator{
-    private $index;
-    
-    public function __construct() {
-        $this->index = 0;
-    }
 
-    public function current() {
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of FizzBuzz
+ *
+ * @author Oliver
+ */
+namespace Day5;
+class FizzBuzz implements \Iterator {
+    private $entries;
+    
+    public function __construct($max) {
+        $this->entries = [];
         
-        if ($this->index % 3 != 0 && $this->index % 5 != 0)
-            return $this->index;
-        else
+        for ($i = 1; $i <= $max; ++$i)
         {
-            $retval = '';
-            
-            if ($this->index % 3 == 0)
-                $retval .= 'Fizz';
-            
-            if ($this->index % 5 == 0)
-                $retval .= 'Buzz';
-            
-            return $retval;
+            if ($i % 5 != 0 && $i % 3 != 0)
+               $this->entries[$i] = $i;
+            else
+            {
+                $val = '';
+                
+                if ($i % 3 == 0)
+                    $val .= 'Fizz';
+                
+                if ($i % 5 == 0)
+                    $val .= 'Buzz';
+                
+                $this->entries[$i] = $val;
+            }
         }
     }
 
+    public function current() {
+        return current($this->entries);
+    }
+
     public function key() {
-        return $this->index;
+        return key($this->entries);
     }
 
     public function next() {
-        $this->index++;
-        return $this->current;
+        return next($this->entries);
     }
 
     public function rewind() {
-        $this->index = 0;
+        reset($this->entries);
     }
 
     public function valid() {
-        return true;
+        return ($this->key() !== null && $this->key() !== false);
     }
 }
 
